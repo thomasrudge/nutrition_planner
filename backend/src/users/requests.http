@@ -12,7 +12,8 @@ Content-Type: application/json
 GET http://localhost:3000/users/569a6a5b-b273-49ed-8cb5-0a891f6990ec
 
 ### Get user by email
-GET http://localhost:3000/users/email/jd@jd.com
+GET http://localhost:3000/users/email/a@b.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkOWEyNWYwNy01ZDk2LTQxNGMtOWYwYS1iM2I3YTk5Zjg0ZTciLCJpYXQiOjE3NzMxNjQ0MDMsImV4cCI6MTc3MzI1MDgwM30.XfixDIkMraIs-iTUtYbM5W_6-hzCAENHWBs_3xWUoUA
 
 ### Update user information
 PATCH  http://localhost:3000/users/569a6a5b-b273-49ed-8cb5-0a891f6990ec
