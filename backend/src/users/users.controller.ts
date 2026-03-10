@@ -48,10 +48,10 @@ export class UsersController {
     }
 
     
-    @Post()
-    createUser(@Body() body: CreateUserDto){
-        return this.usersService.create(body.name, body.email,body.password)
-    }
+    // @Post()
+    // createUser(@Body() body: CreateUserDto){
+    //     return this.usersService.create(body.name, body.email,body.password)
+    // }
     
     @Patch('/:id')
     async updateUser(@Param('id') id:string, @Body() body: UpdateUserDto){

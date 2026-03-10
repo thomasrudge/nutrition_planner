@@ -26,17 +26,19 @@ my-app/
 
 > Base URL: `http://localhost:3000`
 
+### Auth
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/signup` | Register a new user, returns JWT |
+| POST | `/auth/signin` | Sign in, returns JWT |
+
 ### Users
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/users/:id` | Get a user by ID |
 | GET | `/users/email/:email` | Get a user by email |
-| POST | `/users` | Create a new user |
 | PATCH | `/users/:id` | Update a user |
 | DELETE | `/users/:id` | Delete a user |
-
-### Auth
-*(coming soon)*
 
 ---
 
