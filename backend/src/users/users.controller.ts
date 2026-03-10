@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Patch, Delete, Param, NotFoundException, Body } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, NotFoundException, Body, ForbiddenException } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './DTOs/create-user.dto';
 import { UpdateUserDto } from './DTOs/update-user.dto';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { User } from './users.entity';
 
 @Controller('users')
 export class UsersController {
@@ -38,7 +39,11 @@ export class UsersController {
     }
 
     @Delete('/:id')
-    async deleteUser(@Param('id') id:string){
+  
+    async deleteUser(@Param('id') id:string, @CurrentUser() currentUser: { userId: string }){
+        if (currentUser.userId !== id){
+            throw new ForbiddenException("You can only delete your own account.")
+        }
         const user = await this.usersService.delete(id)
 
         if (!user){
@@ -48,13 +53,13 @@ export class UsersController {
     }
 
     
-    // @Post()
-    // createUser(@Body() body: CreateUserDto){
-    //     return this.usersService.create(body.name, body.email,body.password)
-    // }
-    
     @Patch('/:id')
-    async updateUser(@Param('id') id:string, @Body() body: UpdateUserDto){
+    async updateUser(@Param('id') id:string, @Body() body: UpdateUserDto, @CurrentUser() currentUser: { userId: string } ){
+
+        if (currentUser.userId !== id){
+            throw new ForbiddenException("You can only modify your own account.")
+        }
+
         const user =  await this.usersService.update(id, body)
 
         if (!user){

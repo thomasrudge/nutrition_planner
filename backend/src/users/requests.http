@@ -17,6 +17,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkOWEyNWYwN
 
 ### Update user information
 PATCH  http://localhost:3000/users/569a6a5b-b273-49ed-8cb5-0a891f6990ec
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkOWEyNWYwNy01ZDk2LTQxNGMtOWYwYS1iM2I3YTk5Zjg0ZTciLCJpYXQiOjE3NzMxNjQ0MDMsImV4cCI6MTc3MzI1MDgwM30.XfixDIkMraIs-iTUtYbM5W_6-hzCAENHWBs_3xWUoUA
 Content-Type: application/json
 
 {
@@ -24,5 +25,6 @@ Content-Type: application/json
 }
 
 ### Delete a user
-DELETE http://localhost:3000/users/569a6a5b-b273-49ed-8cb5-0a891f6990ec
+DELETE http://localhost:3000/users/d9a25f07-5d96-414c-9f0a-b3b7a99f84e7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkOWEyNWYwNy01ZDk2LTQxNGMtOWYwYS1iM2I3YTk5Zjg0ZTciLCJpYXQiOjE3NzMxNjQ0MDMsImV4cCI6MTc3MzI1MDgwM30.XfixDIkMraIs-iTUtYbM5W_6-hzCAENHWBs_3xWUoUA
 
