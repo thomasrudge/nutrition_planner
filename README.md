@@ -1,6 +1,6 @@
-# Project Name
+# Nutrition Planner
 
-> Short description of what this project does.
+> A web app that lets users track their daily nutrition by uploading meal photos, which are analyzed by a computer vision model to calculate calories, protein, and other nutrients.
 
 ---
 
@@ -8,15 +8,17 @@
 
 - **Backend:** NestJS (Node.js)
 - **Frontend:** React + Vite (TypeScript)
+- **AI:** Python (computer vision model)
 
 ---
 
 ## Project Structure
 
 ```
-my-app/
+nutrition_planner/
 ├── backend/      # NestJS API
 ├── frontend/     # React + Vite
+├── ai/           # Python computer vision model
 └── README.md
 ```
 
