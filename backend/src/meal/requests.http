@@ -1,0 +1,37 @@
+### Create a meal
+POST http://localhost:3000/meal
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM2OTQ4NjQsImV4cCI6MTc3Mzc4MTI2NH0.dbwnuR39k-8AaSTje_NBBQm7lFvPDKHU1xnP2vIq0es
+Content-Type: application/json
+
+{
+  "name": "Almoço",
+  "date": "2026-03-16T12:00:00.000Z",
+  "photoUrl": "http://example.com/photo.jpg",
+  "notes": "Sem manteiga"
+}
+
+### Get all meals for current user
+GET http://localhost:3000/meal/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM2OTQ4NjQsImV4cCI6MTc3Mzc4MTI2NH0.dbwnuR39k-8AaSTje_NBBQm7lFvPDKHU1xnP2vIq0es
+
+### Get meals by date
+GET http://localhost:3000/meal/date/2026-03-16
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM2OTQ4NjQsImV4cCI6MTc3Mzc4MTI2NH0.dbwnuR39k-8AaSTje_NBBQm7lFvPDKHU1xnP2vIq0es
+
+### Get meal by ID
+GET http://localhost:3000/meal/ad5ee2cb-ef88-460a-b33c-29d181a31912
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM2OTQ4NjQsImV4cCI6MTc3Mzc4MTI2NH0.dbwnuR39k-8AaSTje_NBBQm7lFvPDKHU1xnP2vIq0es
+
+### Update meal
+PATCH http://localhost:3000/meal/ad5ee2cb-ef88-460a-b33c-29d181a31912
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM2OTQ4NjQsImV4cCI6MTc3Mzc4MTI2NH0.dbwnuR39k-8AaSTje_NBBQm7lFvPDKHU1xnP2vIq0es
+Content-Type: application/json
+
+{
+  "name": "Jantar",
+  "notes": "Com azeite"
+}
+
+### Delete meal
+DELETE http://localhost:3000/meal/ad5ee2cb-ef88-460a-b33c-29d181a31912
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM2OTQ4NjQsImV4cCI6MTc3Mzc4MTI2NH0.dbwnuR39k-8AaSTje_NBBQm7lFvPDKHU1xnP2vIq0es

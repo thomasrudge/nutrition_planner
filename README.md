@@ -7,7 +7,7 @@
 ## Tech Stack
 
 - **Backend:** NestJS (Node.js)
-- **Frontend:** React + Vite (TypeScript)
+- **Frontend:** React + Vite (TypeScript) — [separate repo](https://github.com/thomasrudge)
 - **AI:** Python (computer vision model)
 
 ---
@@ -17,7 +17,6 @@
 ```
 nutrition_planner/
 ├── backend/      # NestJS API
-├── frontend/     # React + Vite
 ├── ai/           # Python computer vision model
 └── README.md
 ```
@@ -42,6 +41,16 @@ nutrition_planner/
 | PATCH | `/users/:id` | Update a user |
 | DELETE | `/users/:id` | Delete a user |
 
+### Meals
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/meal` | Create a new meal |
+| GET | `/meal/user` | Get all meals for current user |
+| GET | `/meal/date/:date` | Get meals by date |
+| GET | `/meal/:id` | Get a meal by ID |
+| PATCH | `/meal/:id` | Update a meal |
+| DELETE | `/meal/:id` | Delete a meal |
+
 ---
 
 ## Scripts
@@ -50,8 +59,6 @@ nutrition_planner/
 |---------|----------|-------------|
 | `npm run start:dev` | `/backend` | Start backend in watch mode |
 | `npm run build` | `/backend` | Build backend for production |
-| `npm run dev` | `/frontend` | Start frontend dev server |
-| `npm run build` | `/frontend` | Build frontend for production |
 
 ---
 

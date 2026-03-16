@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/users.entity';
+import { MealModule } from './meal/meal.module';
+import { Meal } from './meal/meal.entity';
 
 @Module({
   imports: [
@@ -15,11 +17,12 @@ import { User } from './users/users.entity';
       username: 'thomasrudge',
       password: '',
       database: 'medical_app',
-      entities: [User],
+      entities: [User, Meal],
       synchronize: true,
     }),
     AuthModule,
     UsersModule,
+    MealModule,
   ],
   controllers: [AppController],
   providers: [AppService],

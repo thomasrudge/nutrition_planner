@@ -1,4 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn,
+import { Meal } from "src/meal/meal.entity";
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany,
     
  } from "typeorm";
 
@@ -16,6 +17,9 @@ export class User{
 
     @Column()
     password:string;
+
+    @OneToMany(() => Meal, (meal) => meal.user)
+        meals: Meal[];
 
 
 }
