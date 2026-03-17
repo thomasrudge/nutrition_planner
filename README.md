@@ -51,6 +51,15 @@ nutrition_planner/
 | PATCH | `/meal/:id` | Update a meal |
 | DELETE | `/meal/:id` | Delete a meal |
 
+### Meal Items
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/meal-item` | Create a meal item |
+| GET | `/meal-item/meal/:mealId` | Get all items for a meal |
+| GET | `/meal-item/totals/:mealId` | Get macro totals for a meal |
+| PATCH | `/meal-item/:id` | Update a meal item |
+| DELETE | `/meal-item/:id` | Delete a meal item |
+
 ---
 
 ## Scripts
@@ -59,6 +68,7 @@ nutrition_planner/
 |---------|----------|-------------|
 | `npm run start:dev` | `/backend` | Start backend in watch mode |
 | `npm run build` | `/backend` | Build backend for production |
+| `python main.py` | `/ai` | Start the AI placeholder server |
 
 ---
 
