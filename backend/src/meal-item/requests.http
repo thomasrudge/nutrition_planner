@@ -1,0 +1,51 @@
+### Create a meal item
+POST http://localhost:3000/meal-item
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8
+Content-Type: application/json
+
+{
+  "mealId": "df8fa49e-2f8e-467b-90b1-fe5420a94cb3",
+  "name": "Arroz branco",
+  "quantity": 150,
+  "protein": 3.6,
+  "carbs": 43.2,
+  "fats": 0.4,
+  "calories": 195
+}
+
+### Create another meal item
+POST http://localhost:3000/meal-item
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8
+Content-Type: application/json
+
+{
+  "mealId": "df8fa49e-2f8e-467b-90b1-fe5420a94cb3",
+  "name": "Frango grelhado",
+  "quantity": 120,
+  "protein": 37.2,
+  "carbs": 0,
+  "fats": 4.3,
+  "calories": 198
+}
+
+### Get all items for a meal
+GET http://localhost:3000/meal-item/meal/df8fa49e-2f8e-467b-90b1-fe5420a94cb3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8
+
+### Get meal totals
+GET http://localhost:3000/meal-item/totals/df8fa49e-2f8e-467b-90b1-fe5420a94cb3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8
+
+### Update a meal item
+PATCH http://localhost:3000/meal-item/b4716ccd-7d23-48c6-84ad-64fdedbc6860
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8
+Content-Type: application/json
+
+{
+  "quantity": 200,
+  "calories": 260
+}
+
+### Delete a meal item
+DELETE http://localhost:3000/meal-item/YOUR_MEAL_ITEM_ID_HERE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8

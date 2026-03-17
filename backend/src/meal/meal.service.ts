@@ -21,22 +21,22 @@ export class MealService {
     }
 
     async deleteMeal(id:string){
-        const user = await this.findOneById(id)
-        if (!user){
+        const meal = await this.findOneById(id)
+        if (!meal){
             return null;
         }
 
-        return this.repo.remove(user)
+        return this.repo.remove(meal)
     }
 
     async editMeal(id:string, attrs: Partial<Meal>){
-        const user = await this.findOneById(id);
-        if (!user){
+        const meal = await this.findOneById(id);
+        if (!meal){
             return null;
         }
 
-        Object.assign(user,attrs);
-        return this.repo.save(user)
+        Object.assign(meal,attrs);
+        return this.repo.save(meal)
     }
 
     findAllByUser(id:string){
@@ -62,7 +62,7 @@ export class MealService {
 
     findOneById(id: string) {
         return this.repo.findOne({ 
-            where: { id }, 
+            where: { MealId: id }, 
             relations: ['user'] 
         });
     }
