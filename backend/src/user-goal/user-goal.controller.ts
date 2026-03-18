@@ -10,7 +10,7 @@ export class UserGoalController {
 
     @Post()
     async create(@Body() body: CreateUserGoalsDto, @CurrentUser() currentUser: { userId: string }) {
-        return await this.userGoalService.create(currentUser.userId, body.calories, body.protein, body.carbs, body.fats);
+        return await this.userGoalService.create(currentUser.userId, body.weight, body.height, body.birthDate, body.activityLevel, body.gender);
     }
 
     @Get()
@@ -22,16 +22,16 @@ export class UserGoalController {
     async update(@Body() body: UpdateUserGoalsDto, @CurrentUser() currentUser: { userId: string }) {
         const userGoal = await this.userGoalService.findByUserId(currentUser.userId);
         
-                    if (!userGoal) throw new NotFoundException("User Goal not found!");
+        if (!userGoal) throw new NotFoundException("User Goal not found!");
+
         
-                    
-            
-                    const newUserGoal =  await this.userGoalService.update(currentUser.userId, body)
-            
-                    if (!newUserGoal){
-                        throw new NotFoundException("User Goal not found!")
-                    }
-            
-                    return newUserGoal;
+
+        const newUserGoal =  await this.userGoalService.update(currentUser.userId, body)
+
+        if (!newUserGoal){
+            throw new NotFoundException("User Goal not found!")
+        }
+
+        return newUserGoal;
     }
 }

@@ -1,9 +1,23 @@
 // create-meal-item.dto.ts
-import { IsString, IsNumber, IsOptional } from "class-validator";
+import { IsString, IsNumber, IsOptional, IsDate } from "class-validator";
 
 export class UpdateUserGoalsDto {
 
-  
+  @IsNumber()
+  @IsOptional()
+  weight: number;
+
+  @IsNumber()
+  @IsOptional()
+  height: number;
+
+  @IsDate()
+  @IsOptional()
+  birthDate: Date;
+
+  @IsString()
+  @IsOptional()
+  activityLevel: string;
 
   @IsNumber()
   @IsOptional()

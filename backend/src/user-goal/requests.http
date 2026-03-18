@@ -4,10 +4,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyY
 Content-Type: application/json
 
 {
-  "calories": 2200,
-  "protein": 150,
-  "carbs": 280,
-  "fats": 80
+  "weight": 75,
+  "height": 178,
+  "birthDate": "1998-05-15",
+  "activityLevel": "moderately active",
+  "gender": "male"
 }
 
 ### Get user goals

@@ -9,18 +9,32 @@ export class UserGoal{
     @PrimaryGeneratedColumn('uuid')
     UserGoalId:string;
 
-   
     @OneToOne(() => User)
     @JoinColumn()
     user: User;
 
-    @Column('float')
+    @Column()
+    height:number;
+
+    @Column()
+    weight:number;
+
+    @Column()
+    birthDate:Date;
+
+    @Column()
+    activityLevel:string;
+
+    @Column()
+    gender:string;
+
+    @Column()
     protein:number;
 
-    @Column('float')
+    @Column()
     carbs:number;
 
-    @Column('float')
+    @Column()
     fats:number;
 
     @Column()
