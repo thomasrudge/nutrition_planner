@@ -25,6 +25,7 @@ Content-Type: application/json
 }
 
 ### Delete a user
-DELETE http://localhost:3000/users/d9a25f07-5d96-414c-9f0a-b3b7a99f84e7
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkOWEyNWYwNy01ZDk2LTQxNGMtOWYwYS1iM2I3YTk5Zjg0ZTciLCJpYXQiOjE3NzMxNjQ0MDMsImV4cCI6MTc3MzI1MDgwM30.XfixDIkMraIs-iTUtYbM5W_6-hzCAENHWBs_3xWUoUA
+DELETE http://localhost:3000/users/89e2c049-ef40-4900-90c2-e3814ef341e5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4OWUyYzA0OS1lZjQwLTQ5MDAtOTBjMi1lMzgxNGVmMzQxZTUiLCJpYXQiOjE3NzM4MDI1ODcsImV4cCI6MTc3Mzg4ODk4N30.Uk2UcY8XVGI_IeffDoO21W0zwiYmTvYlFXu5UoAzavU
+
 

@@ -20,14 +20,15 @@ export class MealService {
         return await this.repo.save(meal);
     }
 
-    async deleteMeal(id:string){
-        const meal = await this.findOneById(id)
-        if (!meal){
-            return null;
+    async deleteMeal(id: string) {
+        const meal = await this.findOneById(id);
+        if (!meal) return null;
+        
+        // Delete meal items first
+        await this.repo.query(`DELETE FROM meal_item WHERE "mealMealId" = '${id}'`);
+        
+        return this.repo.remove(meal);
         }
-
-        return this.repo.remove(meal)
-    }
 
     async editMeal(id:string, attrs: Partial<Meal>){
         const meal = await this.findOneById(id);
@@ -55,6 +56,7 @@ export class MealService {
 
         return this.repo
             .createQueryBuilder('meal')
+            .leftJoinAndSelect('meal.mealItem', 'mealItem')
             .where('meal.userId = :id', { id })
             .andWhere('meal.date BETWEEN :start AND :end', { start, end })
             .getMany();
@@ -65,5 +67,27 @@ export class MealService {
             where: { MealId: id }, 
             relations: ['user'] 
         });
+    }
+
+    async dailyTotals(mealId: string, date: Date) {
+        const meals = await this.findByDate(mealId, date);
+        let totals = {
+            protein: 0,
+            carbs: 0,
+            fats: 0,
+            calories: 0
+        };
+
+        meals.forEach(meal => {
+            meal.mealItem.forEach(item => {
+                totals.protein += item.protein;
+                totals.carbs += item.carbs;
+                totals.fats += item.fats;
+                totals.calories += item.calories;
+            });
+        });
+
+        return totals;
+            
     }
 }

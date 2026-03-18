@@ -14,10 +14,10 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "a@b.com",
-    "password": "password123"
+    "email": "thomasrudge2@me.com",
+    "password": "12345678"
 }
 
 ### Delete a user OR CMD+S in the db
-DELETE http://localhost:3000/users/1cb45710-9df6-4689-a33e-3c196b5231d0
+DELETE http://localhost:3000/users/d2dc33e3-6c7e-4bc5-9a8a-1e8a2a724fa5
 

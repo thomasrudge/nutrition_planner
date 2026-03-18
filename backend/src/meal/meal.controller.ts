@@ -6,7 +6,6 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import axios from 'axios';
-import { response } from 'express';
 import { MealItemService } from 'src/meal-item/meal-item.service';
 
 @Controller('meal')
@@ -69,22 +68,11 @@ export class MealController {
   }
 
 
-  @Get('/:id')
-    async findOneById(@Param('id') id: string, @CurrentUser() currentUser: { userId: string }) {
-
-        const meal = await this.mealService.findOneById(id);
-
-        if (!meal) throw new NotFoundException("Meal not found!");
-
-        if (meal.user.id !== currentUser.userId) throw new ForbiddenException("You can only view your own meals.");
-
-        return meal;
-    }   
-
     @Post('/analyze')
     @UseInterceptors(FileInterceptor('file'))
     async analyzeMeal( @UploadedFile() file: Express.Multer.File, @Body() body: CreateMealDto,@CurrentUser() currentUser: { userId: string }) {
 
+            
             // 1. Save the image locally
             const filePath = `./uploads/${file.originalname}`;
             fs.writeFileSync(filePath, file.buffer);
@@ -100,9 +88,30 @@ export class MealController {
             const meal = await this.mealService.createMeal(currentUser.userId, body.name, body.date, filePath, body.notes)
             // 4. Create MealItem records
             for (const item of returnedData.items) {
+                
                 const newMealItem = await this.mealItemService.create(meal.MealId, item.name, item.quantity, item.protein, item.carbs, item.fats, item.calories)
             }
             // 5. Return meal with items
-            return {meal , items: returnedData.items}
+            const savedItems = await this.mealItemService.findAllByMeal(meal.MealId);
+            
+            return { meal, items: savedItems };
         }
+
+    @Get('/daily-totals/:date')
+        async getDailyTotals(@Param('date') date: string, @CurrentUser() currentUser: { userId: string }) {
+        const mealDate = new Date(date);
+        return this.mealService.dailyTotals(currentUser.userId, mealDate);
+        }
+
+    @Get('/:id')
+    async findOneById(@Param('id') id: string, @CurrentUser() currentUser: { userId: string }) {
+
+        const meal = await this.mealService.findOneById(id);
+
+        if (!meal) throw new NotFoundException("Meal not found!");
+
+        if (meal.user.id !== currentUser.userId) throw new ForbiddenException("You can only view your own meals.");
+
+        return meal;
+    }   
 }
