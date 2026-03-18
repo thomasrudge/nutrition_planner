@@ -1,12 +1,17 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, ForbiddenException, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, ForbiddenException, NotFoundException, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { MealService } from './meal.service';
 import { CreateMealDto } from './DTOs/create-meal.dto';
 import { UpdateMealDto } from './DTOs/update-meal.dto';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import * as fs from 'fs';
+import axios from 'axios';
+import { response } from 'express';
+import { MealItemService } from 'src/meal-item/meal-item.service';
 
 @Controller('meal')
 export class MealController {
-  constructor(private mealService: MealService) {}
+  constructor(private mealService: MealService, private mealItemService: MealItemService) {}
 
   @Post()
   createMeal(@Body() body: CreateMealDto, @CurrentUser() currentUser: { userId: string }) {
@@ -65,7 +70,7 @@ export class MealController {
 
 
   @Get('/:id')
-        async findOneById(@Param('id') id: string, @CurrentUser() currentUser: { userId: string }) {
+    async findOneById(@Param('id') id: string, @CurrentUser() currentUser: { userId: string }) {
 
         const meal = await this.mealService.findOneById(id);
 
@@ -74,5 +79,30 @@ export class MealController {
         if (meal.user.id !== currentUser.userId) throw new ForbiddenException("You can only view your own meals.");
 
         return meal;
-}
+    }   
+
+    @Post('/analyze')
+    @UseInterceptors(FileInterceptor('file'))
+    async analyzeMeal( @UploadedFile() file: Express.Multer.File, @Body() body: CreateMealDto,@CurrentUser() currentUser: { userId: string }) {
+
+            // 1. Save the image locally
+            const filePath = `./uploads/${file.originalname}`;
+            fs.writeFileSync(filePath, file.buffer);
+            // 2. Send image to Python server
+            const returnedData = await axios.post('http://localhost:8001/analyze', {
+                imagePath: filePath
+            }).then(response => response.data)
+            .catch(error => {
+                console.error('Error analyzing meal:', error);
+                throw new NotFoundException("Error analyzing meal");
+            });
+            // 3. Create Meal record
+            const meal = await this.mealService.createMeal(currentUser.userId, body.name, body.date, filePath, body.notes)
+            // 4. Create MealItem records
+            for (const item of returnedData.items) {
+                const newMealItem = await this.mealItemService.create(meal.MealId, item.name, item.quantity, item.protein, item.carbs, item.fats, item.calories)
+            }
+            // 5. Return meal with items
+            return {meal , items: returnedData.items}
+        }
 }

@@ -12,7 +12,7 @@ Content-Type: application/json
 
 ### Get all meals for current user
 GET http://localhost:3000/meal/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3OTQxMzMsImV4cCI6MTc3Mzg4MDUzM30.M31kRWYFoskhj3WkP_xVh8Bwy2erG9TX3XQNJDZ5Tiw
 
 ### Get meals by date
 GET http://localhost:3000/meal/date/2026-03-16
@@ -35,3 +35,23 @@ Content-Type: application/json
 ### Delete meal
 DELETE http://localhost:3000/meal/ad5ee2cb-ef88-460a-b33c-29d181a31912
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM2OTQ4NjQsImV4cCI6MTc3Mzc4MTI2NH0.dbwnuR39k-8AaSTje_NBBQm7lFvPDKHU1xnP2vIq0es
+
+### Analyze meal
+POST http://localhost:3000/meal/analyze
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3OTQxMzMsImV4cCI6MTc3Mzg4MDUzM30.M31kRWYFoskhj3WkP_xVh8Bwy2erG9TX3XQNJDZ5Tiw
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="name"
+
+Almoço
+--boundary
+Content-Disposition: form-data; name="date"
+
+2026-03-17T12:00:00.000Z
+--boundary
+Content-Disposition: form-data; name="file"; filename="test.jpg"
+Content-Type: image/jpeg
+
+< /Users/thomasrudge/Downloads/test.jpg
+--boundary--

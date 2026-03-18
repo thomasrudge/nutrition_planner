@@ -14,6 +14,7 @@ export class CreateMealDto{
     date: Date;
 
     @IsString()
+    @IsOptional()
     photoUrl:string;
 
     @IsOptional()

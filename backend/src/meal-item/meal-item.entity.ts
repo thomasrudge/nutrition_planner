@@ -28,6 +28,6 @@ export class MealItem{
     @Column('float')
     fats:number;
 
-    @Column()
+    @Column('float')
     calories:number;
 }

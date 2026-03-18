@@ -26,7 +26,7 @@ export class Meal{
     @Column()
     photoUrl:string;
 
-    @Column()
+    @Column({nullable: true})
     notes:string;
 
 }

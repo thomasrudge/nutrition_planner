@@ -1,5 +1,6 @@
 import { Meal } from "src/meal/meal.entity";
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany,
+import { UserGoal } from "src/user-goal/user-goal.entity";
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne,
     
  } from "typeorm";
 
@@ -20,6 +21,9 @@ export class User{
 
     @OneToMany(() => Meal, (meal) => meal.user)
         meals: Meal[];
+
+    @OneToOne(() => UserGoal)
+    userGoal: UserGoal;
 
 
 }

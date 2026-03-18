@@ -1,0 +1,25 @@
+### Create user goals
+POST http://localhost:3000/user-goal
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3OTQxMzMsImV4cCI6MTc3Mzg4MDUzM30.M31kRWYFoskhj3WkP_xVh8Bwy2erG9TX3XQNJDZ5Tiw
+Content-Type: application/json
+
+{
+  "calories": 2200,
+  "protein": 150,
+  "carbs": 280,
+  "fats": 80
+}
+
+### Get user goals
+GET http://localhost:3000/user-goal
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3OTQxMzMsImV4cCI6MTc3Mzg4MDUzM30.M31kRWYFoskhj3WkP_xVh8Bwy2erG9TX3XQNJDZ5Tiw
+
+### Update user goals
+PATCH http://localhost:3000/user-goal
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3OTQxMzMsImV4cCI6MTc3Mzg4MDUzM30.M31kRWYFoskhj3WkP_xVh8Bwy2erG9TX3XQNJDZ5Tiw
+Content-Type: application/json
+
+{
+  "calories": 2500,
+  "protein": 180
+}

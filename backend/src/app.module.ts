@@ -9,6 +9,8 @@ import { MealModule } from './meal/meal.module';
 import { Meal } from './meal/meal.entity';
 import { MealItemModule } from './meal-item/meal-item.module';
 import { MealItem } from './meal-item/meal-item.entity';
+import { UserGoalModule } from './user-goal/user-goal.module';
+import { UserGoal } from './user-goal/user-goal.entity';
 
 @Module({
   imports: [
@@ -19,13 +21,14 @@ import { MealItem } from './meal-item/meal-item.entity';
       username: 'thomasrudge',
       password: '',
       database: 'medical_app',
-      entities: [User, Meal, MealItem],
+      entities: [User, Meal, MealItem, UserGoal],
       synchronize: true,
     }),
     AuthModule,
     UsersModule,
     MealModule,
     MealItemModule,
+    UserGoalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

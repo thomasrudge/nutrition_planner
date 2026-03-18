@@ -44,6 +44,7 @@ nutrition_planner/
 ### Meals
 | Method | Endpoint | Description |
 |--------|----------|-------------|
+| POST | `/meal/analyze` | Upload photo, analyze with AI, create meal + items |
 | POST | `/meal` | Create a new meal |
 | GET | `/meal/user` | Get all meals for current user |
 | GET | `/meal/date/:date` | Get meals by date |
@@ -60,6 +61,13 @@ nutrition_planner/
 | PATCH | `/meal-item/:id` | Update a meal item |
 | DELETE | `/meal-item/:id` | Delete a meal item |
 
+### User Goals
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/user-goal` | Create user goals |
+| GET | `/user-goal` | Get current user's goals |
+| PATCH | `/user-goal` | Update user goals |
+
 ---
 
 ## Scripts
@@ -68,7 +76,7 @@ nutrition_planner/
 |---------|----------|-------------|
 | `npm run start:dev` | `/backend` | Start backend in watch mode |
 | `npm run build` | `/backend` | Build backend for production |
-| `python main.py` | `/ai` | Start the AI placeholder server |
+| `uvicorn main:app --reload --port 8001` | `/ai` | Start the AI placeholder server |
 
 ---
 

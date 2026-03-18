@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ### Get all items for a meal
 GET http://localhost:3000/meal-item/meal/df8fa49e-2f8e-467b-90b1-fe5420a94cb3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3OTQxMzMsImV4cCI6MTc3Mzg4MDUzM30.M31kRWYFoskhj3WkP_xVh8Bwy2erG9TX3XQNJDZ5Tiw
 
 ### Get meal totals
 GET http://localhost:3000/meal-item/totals/df8fa49e-2f8e-467b-90b1-fe5420a94cb3
@@ -49,3 +49,14 @@ Content-Type: application/json
 ### Delete a meal item
 DELETE http://localhost:3000/meal-item/YOUR_MEAL_ITEM_ID_HERE
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNjBlZGQyYS1mYzcyLTRmMWQtYTIyOC04NDVlNzE3MGYxODMiLCJpYXQiOjE3NzM3MTA2OTIsImV4cCI6MTc3Mzc5NzA5Mn0.0Zh4zqS3j3cfpPpm3kzytAfVENHkwoCF674ksUvjQa8
+
+### Test Python AI placeholder
+POST http://localhost:8001/analyze
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="test.jpg"
+Content-Type: image/jpeg
+
+< ./test.jpeg
+--boundary--
