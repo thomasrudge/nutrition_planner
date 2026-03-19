@@ -40,9 +40,12 @@ export class MealService {
         return this.repo.save(meal)
     }
 
-    findAllByUser(id:string){
-        return this.repo.findBy({ user: { id } })
-    }
+    findAllByUser(id: string) {
+        return this.repo.find({ 
+            where: { user: { id } },
+            relations: ['mealItem']
+        });
+        }
 
     findByDate(id: string, date: Date) {
         const start = new Date(date);

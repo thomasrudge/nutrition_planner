@@ -14,16 +14,13 @@ import { UserGoal } from './user-goal/user-goal.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'thomasrudge',
-      password: '',
-      database: 'medical_app',
-      entities: [User, Meal, MealItem, UserGoal],
-      synchronize: true,
-    }),
+      TypeOrmModule.forRoot({
+  type: 'postgres',
+  url: 'postgresql://postgres.fhmxagglezknbvxkyczp:AAAAAAAAAAAAAAAAAAA@aws-1-sa-east-1.pooler.supabase.com:5432/postgres',
+  entities: [User, Meal, MealItem, UserGoal],
+  synchronize: true,
+  ssl: { rejectUnauthorized: false },
+}),
     AuthModule,
     UsersModule,
     MealModule,

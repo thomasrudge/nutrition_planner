@@ -38,13 +38,15 @@ export class UsersService {
     }
 
  
-    async delete(id:string){
-        const user = await this.findOneById(id)
-        if (!user){
-            return null;
-        }
+    async delete(id: string) {
+        const user = await this.findOneById(id);
+        if (!user) return null;
 
-        return this.repo.remove(user)
+        await this.repo.query(`DELETE FROM meal_item WHERE "mealMealId" IN (SELECT "MealId" FROM meal WHERE "userId" = '${id}')`);
+        await this.repo.query(`DELETE FROM meal WHERE "userId" = '${id}'`);
+        await this.repo.query(`DELETE FROM user_goal WHERE "userId" = '${id}'`);
+
+        return this.repo.remove(user);
     }
 
 
