@@ -70,6 +70,38 @@ nutrition_planner/
 
 ---
 
+## Setup Instructions
+
+1. Clone the repository and navigate to the project directory
+
+    ```bash
+    git clone <repository-url>
+    cd nutrition_planner
+    ```
+
+2. Activate the Python virtual environment and install dependencies
+    ```bash
+    uv venv 
+    uv sync 
+    .venv\Scripts\activate # PowerShell
+    source .venv/bin/activate # Linux/Mac
+    ```
+
+### Bckend Setup
+
+```bash
+cd backend
+npm run start:dev
+```
+
+### Python AI Setup
+
+```bash
+cd ai
+uvicorn main:app --reload --port 8001
+```  
+
+
 ## Scripts
 
 | Command | Location | Description |

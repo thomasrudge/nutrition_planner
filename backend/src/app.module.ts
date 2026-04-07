@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './users/users.entity';
 import { MealModule } from './meal/meal.module';
 import { Meal } from './meal/meal.entity';
@@ -14,13 +15,18 @@ import { UserGoal } from './user-goal/user-goal.entity';
 
 @Module({
   imports: [
-      TypeOrmModule.forRoot({
-  type: 'postgres',
-  url: 'postgresql://postgres.fhmxagglezknbvxkyczp:AAAAAAAAAAAAAAAAAAA@aws-1-sa-east-1.pooler.supabase.com:5432/postgres',
-  entities: [User, Meal, MealItem, UserGoal],
-  synchronize: true,
-  ssl: { rejectUnauthorized: false },
-}),
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        url: config.get<string>('DATABASE_URL'),
+        entities: [User, Meal, MealItem, UserGoal],
+        synchronize: true,
+        ssl: { rejectUnauthorized: false },
+      }),
+    }),
     AuthModule,
     UsersModule,
     MealModule,
