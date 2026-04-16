@@ -16,16 +16,11 @@ import { UserGoal } from './user-goal/user-goal.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        url: config.get<string>('DATABASE_URL'),
-        entities: [User, Meal, MealItem, UserGoal],
-        synchronize: true,
-        ssl: { rejectUnauthorized: false },
-      }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL!,
+      entities: [User, Meal, MealItem, UserGoal],
+      synchronize: true,
     }),
     AuthModule,
     UsersModule,
