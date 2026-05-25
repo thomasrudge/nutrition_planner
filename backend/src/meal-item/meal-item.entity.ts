@@ -16,7 +16,7 @@ export class MealItem{
     @Column()
     name:string;
 
-    @Column()
+    @Column('float')
     quantity:number;
 
     @Column('float')
