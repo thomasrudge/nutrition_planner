@@ -6,6 +6,8 @@ import { join } from 'path';
 import * as express from 'express';
 
 async function bootstrap() {
+  console.log('AI_SERVICE_URL:', process.env.AI_SERVICE_URL);
+  console.log('DATABASE_URL existe:', !!process.env.DATABASE_URL);
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
