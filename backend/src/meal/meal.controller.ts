@@ -89,7 +89,9 @@ export class MealController {
             }, {timeout: 120000})
             .then(response => response.data)
             .catch(error => {
-                console.error('Error analyzing meal:', error);
+                console.error('Error analyzing meal:', error.message);
+                console.error('Code:', error.code);
+                console.error('URL:', error.config?.url);
                 throw new NotFoundException("Error analyzing meal");
             });
             // 3. Create Meal record
