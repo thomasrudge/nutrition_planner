@@ -117,7 +117,10 @@ async def reclassify(request: ReclassifyRequest):
 # ============================================================================
 # Modelo YOLO
 # ============================================================================
-model = YOLO('models/best.pt')  # AJUSTE se o path for diferente
+import os
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'models', 'best.pt')
+model = YOLO(MODEL_PATH)
+
 PLATE_DIAMETER_CM = 24
 CALIBRATION_FACTOR = 80  
 
