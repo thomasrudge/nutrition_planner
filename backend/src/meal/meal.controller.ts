@@ -84,9 +84,10 @@ export class MealController {
             );
             // 2. Send image to Python server
             const base64Image = file.buffer.toString('base64');
-            const returnedData = await axios.post('http://localhost:8001/analyze', {
+            const returnedData = await axios.post('${process.env.AI_SERVICE_URL}/analyze', {
                 image: base64Image
-            }).then(response => response.data)
+            }, {timeout: 120000})
+            .then(response => response.data)
             .catch(error => {
                 console.error('Error analyzing meal:', error);
                 throw new NotFoundException("Error analyzing meal");
