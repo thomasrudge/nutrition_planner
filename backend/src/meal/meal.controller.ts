@@ -73,43 +73,57 @@ export class MealController {
 
     @Post('/analyze')
     @UseInterceptors(FileInterceptor('file'))
-    async analyzeMeal( @UploadedFile() file: Express.Multer.File, @Body() body: CreateMealDto,@CurrentUser() currentUser: { userId: string }) {
-
-            
-     
-            // 1. Upload image to Supabase Storage (CDN)
-            const photoUrl = await this.supabaseService.uploadMealPhoto(
+    async analyzeMeal(@UploadedFile() file: Express.Multer.File) {
+        const photoUrl = await this.supabaseService.uploadMealPhoto(
             file.buffer,
             file.originalname,
+        );
+
+        const base64Image = file.buffer.toString('base64');
+        const returnedData = await axios.post(`${process.env.AI_SERVICE_URL}/analyze`, {
+            image: base64Image
+        }, { timeout: 120000 })
+        .then(response => response.data)
+        .catch(error => {
+            console.error('Error analyzing meal:', error.message);
+            throw new NotFoundException("Error analyzing meal");
+        });
+
+        return {
+            photoUrl,
+            items: returnedData.items,
+            annotatedImage: returnedData.annotated_image,
+        };
+    }
+
+    @Post('/save')
+    async saveMeal(
+        @Body() body: { name: string; date: Date; photoUrl: string; notes: string; items: any[] },
+        @CurrentUser() currentUser: { userId: string }
+    ) {
+        const meal = await this.mealService.createMeal(
+            currentUser.userId,
+            body.name,
+            body.date,
+            body.photoUrl,
+            body.notes,
+        );
+
+        for (const item of body.items) {
+            await this.mealItemService.create(
+                meal.MealId,
+                item.name,
+                item.quantity,
+                item.protein,
+                item.carbs,
+                item.fats,
+                item.calories,
             );
-            // 2. Send image to Python server
-            const base64Image = file.buffer.toString('base64');
-            const returnedData = await axios.post(`${process.env.AI_SERVICE_URL}/analyze`, {
-                image: base64Image
-            }, {timeout: 120000})
-            .then(response => response.data)
-            .catch(error => {
-                console.error('Error analyzing meal:', error.message);
-                console.error('Code:', error.code);
-                console.error('URL:', error.config?.url);
-                throw new NotFoundException("Error analyzing meal");
-            });
-            // 3. Create Meal record
-            const meal = await this.mealService.createMeal(currentUser.userId, body.name, body.date, photoUrl, body.notes)
-            // 4. Create MealItem records
-            for (const item of returnedData.items) {
-                
-                const newMealItem = await this.mealItemService.create(meal.MealId, item.name, item.quantity, item.protein, item.carbs, item.fats, item.calories)
-            }
-            // 5. Return meal with items
-            const savedItems = await this.mealItemService.findAllByMeal(meal.MealId);
-            
-            return { 
-                meal, 
-                items: savedItems,
-                annotatedImage: returnedData.annotated_image  
-            };
         }
+
+        const savedItems = await this.mealItemService.findAllByMeal(meal.MealId);
+        return { meal, items: savedItems };
+    }
 
     @Get('/daily-totals/:date')
         async getDailyTotals(@Param('date') date: string, @CurrentUser() currentUser: { userId: string }) {
