@@ -8,3 +8,4 @@ ultralytics==8.4.54
 opencv-python-headless
 numpy==2.4.6
 pillow==12.2.0
+pi-heif
