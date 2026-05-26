@@ -84,7 +84,7 @@ export class MealController {
             );
             // 2. Send image to Python server
             const base64Image = file.buffer.toString('base64');
-            const returnedData = await axios.post('${process.env.AI_SERVICE_URL}/analyze', {
+            const returnedData = await axios.post(`${process.env.AI_SERVICE_URL}/analyze`, {
                 image: base64Image
             }, {timeout: 120000})
             .then(response => response.data)
@@ -130,7 +130,7 @@ export class MealController {
     }
     @Post('/reclassify')
     async reclassify(@Body() body: { className: string; quantity: number }) {
-        const response = await axios.post('http://localhost:8001/reclassify', {
+        const response = await axios.post(`${process.env.AI_SERVICE_URL}/reclassify`, {
             className: body.className,
             quantity: body.quantity,
         });
