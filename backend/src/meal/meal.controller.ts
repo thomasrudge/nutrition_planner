@@ -7,10 +7,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import axios from 'axios';
 import { MealItemService } from 'src/meal-item/meal-item.service';
+import { SupabaseService } from 'src/supabase/supabase.service';
+
+
 
 @Controller('meal')
 export class MealController {
-  constructor(private mealService: MealService, private mealItemService: MealItemService) {}
+  constructor(private mealService: MealService, private mealItemService: MealItemService,  private readonly supabaseService: SupabaseService,) {}
 
   @Post()
   createMeal(@Body() body: CreateMealDto, @CurrentUser() currentUser: { userId: string }) {
@@ -73,19 +76,23 @@ export class MealController {
     async analyzeMeal( @UploadedFile() file: Express.Multer.File, @Body() body: CreateMealDto,@CurrentUser() currentUser: { userId: string }) {
 
             
-            // 1. Save the image locally
-            const filePath = `./uploads/${file.originalname}`;
-            fs.writeFileSync(filePath, file.buffer);
+     
+            // 1. Upload image to Supabase Storage (CDN)
+            const photoUrl = await this.supabaseService.uploadMealPhoto(
+            file.buffer,
+            file.originalname,
+            );
             // 2. Send image to Python server
+            const base64Image = file.buffer.toString('base64');
             const returnedData = await axios.post('http://localhost:8001/analyze', {
-                imagePath: filePath
+                image: base64Image
             }).then(response => response.data)
             .catch(error => {
                 console.error('Error analyzing meal:', error);
                 throw new NotFoundException("Error analyzing meal");
             });
             // 3. Create Meal record
-            const meal = await this.mealService.createMeal(currentUser.userId, body.name, body.date, filePath, body.notes)
+            const meal = await this.mealService.createMeal(currentUser.userId, body.name, body.date, photoUrl, body.notes)
             // 4. Create MealItem records
             for (const item of returnedData.items) {
                 
@@ -94,7 +101,11 @@ export class MealController {
             // 5. Return meal with items
             const savedItems = await this.mealItemService.findAllByMeal(meal.MealId);
             
-            return { meal, items: savedItems };
+            return { 
+                meal, 
+                items: savedItems,
+                annotatedImage: returnedData.annotated_image  
+            };
         }
 
     @Get('/daily-totals/:date')
@@ -113,5 +124,13 @@ export class MealController {
         if (meal.user.id !== currentUser.userId) throw new ForbiddenException("You can only view your own meals.");
 
         return meal;
-    }   
+    }
+    @Post('/reclassify')
+    async reclassify(@Body() body: { className: string; quantity: number }) {
+        const response = await axios.post('http://localhost:8001/reclassify', {
+            className: body.className,
+            quantity: body.quantity,
+        });
+    return response.data;
+    }
 }
