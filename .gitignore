@@ -12,7 +12,9 @@ __pycache__/
 # Modelos e datasets grandes
 *.zip
 
-ai/models/
+*.pt
+ai/models/*
+!ai/models/best.pt
 
 # Dados de anotação e treino (imagens e labels)
 ai/**/output_labels/
@@ -39,4 +41,6 @@ backend/node_modules/
 runs/
 
 # Python cache
-**/__pycache__/
+**/__pycache__/node_modules/
+.env
+dist/
