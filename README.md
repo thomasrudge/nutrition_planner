@@ -4,7 +4,7 @@
 
 🔗 **Live:** https://nutrisnap-sigma.vercel.app
 
-🔗 **Video funcionamento principal:** https://youtu.be/V2FCWahxX28
+🔗 **Video funcionamento principal:** https://youtu.be/6gfQp8dZk-U
 
 ---
 
